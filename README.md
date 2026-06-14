@@ -78,7 +78,7 @@ The project utilizes historical Himalayan glacial lake inventories consisting of
 
 ## System Architecture
 
-
+```
                     ┌─────────────────────┐
                     │ Historical Datasets │
                     └──────────┬──────────┘
@@ -172,6 +172,7 @@ The platform enables:
 * Interactive exploration of historical datasets
 * Forecasting of lake expansion through 2030
 * Quantitative risk assessment for rapidly expanding lakes
+
 ---
 
 ## Technology Stack

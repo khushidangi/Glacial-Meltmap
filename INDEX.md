@@ -1,499 +1,226 @@
-# 📚 Glacial MeltMap - Complete Project Index
+# Glacial MeltMap
 
-## **Project Overview**
-
-Glacial MeltMap is a full-stack geospatial analytics platform for tracking and predicting glacial lake evolution. It integrates QGIS data processing, Python machine learning, React visualization, and Google Earth integration.
+A geospatial intelligence platform for monitoring, analyzing, and forecasting glacial lake expansion across the Himalayan region using geospatial data, Earth observation imagery, and machine learning.
 
 ---
 
-## **📂 PROJECT STRUCTURE**
+## Overview
 
-### **Root Level**
+Glacial MeltMap combines historical glacial lake inventories, satellite imagery, and predictive analytics to enable temporal analysis of lake evolution and assess future expansion risks.
 
-```
-glacial-meltmap/
-├── README.md                          ← Start here for complete documentation
-├── QUICKSTART.md                      ← 5-minute setup guide
-├── WORKFLOW.md                        ← Complete QGIS→Python→Dashboard flow
-├── QGIS_INTEGRATION_GUIDE.md          ← Detailed QGIS data integration
-├── package.json                       ← Node.js/React dependencies
-├── tailwind.config.js                 ← Tailwind CSS configuration
-├── postcss.config.js                  ← PostCSS configuration
-├── Dockerfile                         ← Docker container definition
-├── docker-compose.yml                 ← Multi-container orchestration
-├── .env.example                       ← Environment variables template
-├── .gitignore                         ← Git ignore rules
-└── [Other config files]
-```
+The platform transforms static geospatial datasets into an interactive decision-support system that helps visualize historical change, quantify lake growth, and forecast future expansion trends associated with climate change.
 
 ---
 
-## **🎨 FRONTEND (React Application)**
+## Problem Statement
 
-### **src/ Directory**
+Accelerated glacier retreat is contributing to the formation and rapid growth of glacial lakes across the Himalayas. Many of these lakes pose increasing risks of Glacial Lake Outburst Floods (GLOFs), threatening downstream communities, infrastructure, and ecosystems.
 
-```
-src/
-├── App.js                             ← Main app with routing
-├── index.js                           ← React entry point
-├── styles/
-│   └── App.css                        ← Global styles, animations, themes
-├── components/
-│   ├── Header.js                      ← Top navigation bar
-│   └── Sidebar.js                     ← Side menu with navigation
-└── pages/
-    ├── HomePage.js                    ← Landing page with features/stats
-    ├── RegionSelector.js              ← Browse Himalayas, Andes, Alps
-    ├── LakeSelector.js                ← Browse and filter lakes
-    ├── MapViewer.js                   ← Interactive map with timeline slider
-    ├── Analytics.js                   ← Charts, trends, predictions
-    └── StoryMode.js                   ← Narrative-driven exploration
-```
-
-### **public/ Directory**
-
-```
-public/
-├── index.html                         ← HTML template
-└── favicon                            ← Website icon
-```
-
-### **Key Features**
-
-- **Dark modern UI** - Blue/orange theme with smooth animations
-- **Timeline slider** - Year-by-year exploration (2008-2017)
-- **Interactive charts** - Recharts visualization library
-- **Responsive design** - Works on desktop, tablet, mobile
-- **Story mode** - 5-scene narrative exploration
-- **Analytics dashboard** - Growth rates, predictions, risk levels
+While historical lake inventories provide valuable information, they often lack intuitive visualization, temporal analysis, and forecasting capabilities. Glacial MeltMap addresses this gap through interactive geospatial exploration and predictive modeling.
 
 ---
 
-## **⚙️ BACKEND (Python/Flask)**
+## Key Features
 
-### **backend/ Directory**
+### Geospatial Visualization
 
-```
-backend/
-├── app.py                             ← Flask API server (main)
-├── requirements.txt                   ← Python dependencies
-├── init.sql                           ← PostgreSQL database schema
-├── __init__.py                        ← Package initialization
-├── models/
-│   ├── __init__.py
-│   ├── glacier_predictor.py           ← ML prediction model
-│   ├── train_model.py                 ← Model training script
-│   └── *.pkl                          ← Saved trained models
-├── utils/
-│   ├── __init__.py
-│   └── geospatial_processor.py        ← QGIS shapefile processing
-└── data/
-    ├── shapefiles/                    ← Your QGIS exports go here
-    │   ├── imja_2008.shp
-    │   ├── imja_2009.shp
-    │   └── ... (all lakes & years)
-    └── output/
-        ├── kml/                       ← Generated KML files
-        ├── geojson/                   ← Generated GeoJSON files
-        └── reports/                   ← Analysis reports
-```
+* Multi-year glacial lake visualization (2008–2017)
+* Interactive map-based exploration
+* Temporal comparison using timeline controls
+* GeoJSON rendering for web visualization
+* KML export for Google Earth integration
+* Layer-based geospatial analysis
 
-### **Key Components**
+### Earth Observation Integration
 
-#### **app.py** - Flask API Server
-- RESTful API endpoints for data retrieval
-- KML/GeoJSON serving
-- Prediction generation
-- Analysis endpoints
-- CORS-enabled for frontend access
+* Google Earth Engine integration
+* Sentinel-2 satellite imagery support
+* Landsat imagery overlays
+* Historical imagery comparison
+* Lake boundary validation using remote sensing data
 
-**Main endpoints:**
-```
-GET  /api/health                              → Server health check
-GET  /api/lakes/{id}/historical              → Historical data (2008-2017)
-GET  /api/lakes/{id}/predict                 → AI predictions
-GET  /api/lakes/{id}/analysis                → Detailed analysis
-GET  /api/kml/{id}?year=2017                → KML export for Google Earth
-GET  /api/geojson/{id}                      → GeoJSON for web maps
-GET  /api/regions/{region}/lakes            → All lakes in region
-POST /api/comparison                        → Compare multiple lakes
-GET  /api/stats                             → Global statistics
-```
+### Analytics Dashboard
 
-#### **glacier_predictor.py** - Prediction Model
-- Loads and processes historical data
-- Polynomial regression for growth prediction
-- Confidence scoring
-- Lake metrics calculation
-- KML generation for visualization
+* Historical lake area analysis
+* Annual growth-rate computation
+* Comparative lake analysis
+* Trend visualization
+* Risk assessment indicators
 
-**Key classes:**
-- `GlacierPredictor` - Main predictor class
-- Methods: `predict_growth()`, `analyze_lake()`, `get_historical_data()`
+### Predictive Intelligence
 
-#### **train_model.py** - Model Training Script
-- Reads actual shapefile data from disk
-- Trains polynomial & random forest models
-- Generates predictions with confidence scores
-- Saves models for API use
-- Produces training reports
-
-**Usage:**
-```bash
-python3 models/train_model.py
-```
-
-#### **geospatial_processor.py** - Data Processing
-- Loads QGIS shapefiles
-- Extracts lake boundaries and metrics
-- Generates KML files (single and multi-year)
-- Generates GeoJSON for web mapping
-- Calculates area changes and growth rates
-
-**Key classes:**
-- `GeoSpatialProcessor` - Main processor
-- Methods: `load_shapefile()`, `export_kml()`, `export_geojson()`, `calculate_metrics()`
+* Forecasting lake expansion through 2030
+* Polynomial Regression models
+* Random Forest Regression models
+* Confidence-aware predictions
+* Longitudinal trend analysis
 
 ---
 
-## **📊 API ENDPOINTS**
+## Dataset
 
-### **Detailed Reference**
+The project utilizes historical Himalayan glacial lake inventories consisting of annual lake-boundary shapefiles, geospatial metadata, Earth observation imagery, and derived lake-area time-series data.
 
-#### **GET /api/health**
-Check if backend is running.
-```bash
-curl http://localhost:5000/api/health
-→ { "status": "healthy", "version": "1.0.0" }
-```
+### Data Sources
 
-#### **GET /api/lakes/{lake_id}/historical**
-Get historical area data for a lake.
-```bash
-curl http://localhost:5000/api/lakes/imja/historical
-→ [
-    { "year": 2008, "area": 0.02 },
-    { "year": 2009, "area": 0.05 },
-    ...
-    { "year": 2017, "area": 1.28 }
-  ]
-```
+* Hi-MAG Himalayan Glacial Lake Inventory
+* Historical lake-boundary shapefiles (2008–2017)
+* Sentinel-2 satellite imagery
+* Landsat imagery archives
+* Google Earth Engine datasets
+* Derived area time-series records
 
-#### **GET /api/lakes/{lake_id}/predict?years=10**
-Get predictions for future years.
-```bash
-curl http://localhost:5000/api/lakes/imja/predict?years=10
-→ [
-    { "year": 2018, "area_km2": 1.45, "confidence": 0.91 },
-    ...
-    { "year": 2027, "area_km2": 2.15, "confidence": 0.71 }
-  ]
-```
+### Approximate Dataset Size
 
-#### **GET /api/kml/{lake_id}?year=2017**
-Export KML for Google Earth.
-```bash
-curl http://localhost:5000/api/kml/imja > imja.kml
-# Then open in Google Earth Pro
-```
+5–20 GB depending on study region and imagery coverage.
 
-#### **GET /api/geojson/{lake_id}**
-Get GeoJSON for web mapping.
-```bash
-curl http://localhost:5000/api/geojson/imja
-→ {
-    "type": "FeatureCollection",
-    "features": [...]
-  }
-```
+---
 
-#### **GET /api/stats**
-Global statistics across all lakes.
-```bash
-curl http://localhost:5000/api/stats
-→ {
-    "total_lakes_tracked": 5,
-    "total_area_2008": 2.15,
-    "total_area_2017": 7.42,
-    "total_growth_percent": 244.65
-  }
+## System Architecture
+
+
+                    ┌─────────────────────┐
+                    │ Historical Datasets │
+                    └──────────┬──────────┘
+                               │
+                               ▼
+                    ┌─────────────────────┐
+                    │        QGIS         │
+                    │ Data Preprocessing  │
+                    └──────────┬──────────┘
+                               │
+                               ▼
+                    ┌─────────────────────┐
+                    │ GeoPandas + Flask   │
+                    │ Backend Processing  │
+                    └──────────┬──────────┘
+                               │
+                ┌──────────────┴──────────────┐
+                ▼                             ▼
+      ┌─────────────────┐         ┌─────────────────┐
+      │ Machine Learning│         │ Google Earth    │
+      │ Forecasting     │         │ Engine          │
+      └─────────────────┘         └─────────────────┘
+                │                             │
+                └──────────────┬──────────────┘
+                               ▼
+                    ┌─────────────────────┐
+                    │ React Dashboard     │
+                    └─────────────────────┘
 ```
 
 ---
 
-## **🚀 SETUP & DEPLOYMENT**
+## Methodology
 
-### **Quick Start (5 minutes)**
+### 1. Geospatial Data Preparation
 
-```bash
-# 1. Clone & navigate
-git clone https://github.com/yourusername/glacial-meltmap.git
-cd glacial-meltmap
+Historical glacial lake inventories are imported into QGIS for preprocessing and validation.
 
-# 2. Backend
-cd backend
-python3 -m venv venv
-source venv/bin/activate
-pip install -r requirements.txt
-python3 app.py
+Tasks performed include:
 
-# 3. Frontend (new terminal)
-npm install
-npm start
+* Geometry validation
+* Boundary correction
+* Coordinate reference system normalization
+* Polygon area extraction
+* Attribute cleaning
+* Multi-year dataset organization
+* Conversion between Shapefile, GeoJSON, and KML formats
 
-# 4. Visit http://localhost:3000
-```
+### 2. Earth Observation Analysis
 
-### **Docker Deployment (Production)**
+Satellite imagery is accessed through Google Earth Engine and aligned with historical inventory datasets.
 
-```bash
-# Build and run
-docker-compose up -d
+This enables:
 
-# Access at http://localhost
-```
+* Visual verification of lake boundaries
+* Historical imagery comparison
+* Water-body analysis
+* Temporal change assessment
 
----
+### 3. Feature Engineering
 
-## **📖 DOCUMENTATION FILES**
+For each lake, annual metrics are generated including:
 
-### **README.md**
-- Complete project overview
-- Installation instructions
-- Feature list
-- API documentation
-- Troubleshooting guide
-- **Read this first!**
+* Surface area
+* Area growth
+* Expansion rate
+* Multi-year trends
+* Percentage change
 
-### **QUICKSTART.md**
-- 5-minute setup guide
-- Step-by-step instructions
-- Common issues & fixes
-- Next steps after setup
+### 4. Predictive Modeling
 
-### **QGIS_INTEGRATION_GUIDE.md**
-- Complete QGIS workflow
-- Data preparation in QGIS
-- Exporting to KML/shapefile
-- Google Earth integration
-- Python processing examples
-- **Most important for your data!**
+Historical observations are used to train forecasting models capable of estimating future lake expansion.
 
-### **WORKFLOW.md**
-- Full end-to-end workflow
-- QGIS → Python → Dashboard → Google Earth
-- Step-by-step guide with examples
-- Command references
-- Common tasks & troubleshooting
+Models evaluated include:
+
+* Polynomial Regression
+* Random Forest Regression
+
+### 5. Risk Assessment
+
+Forecasted lake expansion is combined with historical growth trends to identify lakes demonstrating elevated expansion rates and potential future risk.
 
 ---
 
-## **🔧 CONFIGURATION FILES**
+## Results
 
-### **package.json**
-Node.js project manifest with dependencies:
-- React, React DOM
-- Tailwind CSS, PostCSS
-- Recharts (charting)
-- Leaflet (maps)
-- Framer Motion (animations)
-- Axios (HTTP client)
+The platform enables:
 
-### **tailwind.config.js**
-Tailwind CSS customization:
-- Custom color palette (blue/orange theme)
-- Font families (Poppins, Outfit)
-- Animation definitions
-- Shadow & glow effects
+* Visualization of glacial lake evolution over a ten-year period
+* Automated growth-rate computation
+* Interactive exploration of historical datasets
+* Forecasting of lake expansion through 2030
+* Quantitative risk assessment for rapidly expanding lakes
+---
 
-### **requirements.txt**
-Python dependencies:
-- Flask, Flask-CORS
-- GeoPandas, Shapely (geospatial)
-- Scikit-learn (ML)
-- GDAL (raster/vector processing)
-- Pandas, NumPy
+## Technology Stack
 
-### **.env.example**
-Environment variables template:
-- Flask configuration
-- React API URL
-- Google Maps/Earth keys
-- Feature flags
-- Defaults
+### Frontend
+
+* React
+* Tailwind CSS
+
+### Backend
+
+* Flask
+* GeoPandas
+* Scikit-learn
+
+### Geospatial Tools
+
+* QGIS
+* Google Earth Engine
+* GeoJSON
+* KML
+
+### Machine Learning
+
+* Polynomial Regression
+* Random Forest Regression
+* Time-Series Forecasting
 
 ---
 
-## **🗺️ DATA INTEGRATION GUIDE**
+## Applications
 
-### **Step 1: Prepare QGIS Data**
-- Organize Hi-MAG shapefiles by lake and year
-- Export each layer: `{lake_name}_{year}.shp`
-- Place in `backend/data/shapefiles/`
-
-### **Step 2: Process Shapefiles**
-```bash
-python3 << 'EOF'
-from utils.geospatial_processor import GeoSpatialProcessor
-
-processor = GeoSpatialProcessor('./data/shapefiles')
-processor.load_all_shapefiles()
-processor.export_kml('imja', './output/imja_evolution.kml')
-EOF
-```
-
-### **Step 3: Train Models**
-```bash
-python3 models/train_model.py
-```
-
-### **Step 4: Use Dashboard**
-- Run backend and frontend
-- Select region → lake → view timeline & analytics
-
-### **Step 5: Google Earth**
-- Download KML: `curl /api/kml/imja -o imja.kml`
-- Open in Google Earth Pro
-- Toggle years in left panel
+* Climate change monitoring
+* Glacial lake evolution studies
+* Environmental risk assessment
+* Disaster preparedness planning
+* Geospatial decision-support systems
+* Research and academic workflows
 
 ---
 
-## **💡 KEY CONCEPTS**
+## License
 
-### **Timeline Slider**
-- Smooth year-by-year exploration (2008-2017)
-- Connected to map visualization
-- Updates all metrics in real-time
-
-### **Prediction Models**
-- **Polynomial regression** - Fits polynomial curve to growth
-- **Random forest** - Ensemble ML method
-- **Confidence scoring** - Decreases for distant predictions
-- Based on actual shapefile area data
-
-### **KML Integration**
-- Multi-year color-coded boundaries
-- Importable to Google Earth Pro
-- Shows temporal evolution visually
-- Compatible with 3D terrain visualization
-
-### **Analytics**
-- Area evolution charts
-- Growth rate analysis
-- Risk assessment (high/moderate/low)
-- Comparative lake analysis
+MIT License
 
 ---
 
-## **🎯 TYPICAL USER FLOWS**
+## Author
 
-### **Flow 1: Explore Historical Data**
-1. Home → Select Region → Choose Lake
-2. MapViewer: Adjust timeline slider
-3. Watch lake boundary change year by year
-4. View area metrics in sidebar
+**Khushi Dangi**
 
-### **Flow 2: View Predictions**
-1. Select lake → Go to Analytics
-2. Scroll to "AI Predictions" section
-3. See predictions for 2018-2030
-4. Check confidence scores
-
-### **Flow 3: Use Google Earth**
-1. Select lake → Click "Export KML"
-2. Open file in Google Earth Pro
-3. Toggle years in left panel
-4. View in 3D with terrain
-
-### **Flow 4: Compare Lakes**
-1. Analytics → "Comparison Tool"
-2. Select multiple lakes
-3. View side-by-side analysis
-4. Compare growth patterns
-
----
-
-## **🔐 SECURITY NOTES**
-
-### **For Development**
-- Uses SQLite (file-based)
-- Secret key not set (add to .env)
-- CORS allows localhost only
-
-### **For Production**
-- Use PostgreSQL (see docker-compose.yml)
-- Set strong SECRET_KEY in .env
-- Configure CORS for your domain
-- Use HTTPS/SSL certificates
-- Enable rate limiting
-- Implement authentication
-
----
-
-## **📞 SUPPORT & TROUBLESHOOTING**
-
-### **Common Issues**
-
-**"ModuleNotFoundError: geopandas"**
-```bash
-pip install geopandas gdal fiona
-```
-
-**"Port 5000 already in use"**
-```bash
-# Use different port
-export FLASK_PORT=5001
-python3 app.py
-```
-
-**"Cannot GET /api/..."**
-- Ensure backend is running on http://localhost:5000
-- Check API URL in .env
-
-**Shapefiles not loading**
-- Verify naming: `{lake_name}_{year}.shp`
-- Ensure .dbf and .shx files present
-- Check file permissions
-
----
-
-## **🎓 LEARNING RESOURCES**
-
-- **QGIS:** https://qgis.org/
-- **GeoPandas:** https://geopandas.org/
-- **Leaflet:** https://leafletjs.com/
-- **Recharts:** https://recharts.org/
-- **Flask:** https://flask.palletsprojects.com/
-
----
-
-## **📋 CHECKLIST FOR FIRST RUN**
-
-- [ ] Clone repository
-- [ ] Install Node dependencies (`npm install`)
-- [ ] Install Python dependencies (`pip install -r requirements.txt`)
-- [ ] Add your shapefiles to `backend/data/shapefiles/`
-- [ ] Run `python3 models/train_model.py`
-- [ ] Start backend (`python3 app.py`)
-- [ ] Start frontend (`npm start`)
-- [ ] Visit http://localhost:3000
-- [ ] Verify data loads in dashboard
-- [ ] Export KML and test in Google Earth
-
----
-
-## **🚀 NEXT STEPS**
-
-1. **Add Your Data** - Follow QGIS_INTEGRATION_GUIDE.md
-2. **Train Models** - Run train_model.py with your shapefiles
-3. **Customize** - Edit colors, add features, modify pages
-4. **Deploy** - Use Docker or cloud services
-5. **Extend** - Add authentication, database, more ML models
-
----
-
-**Version:** 1.0.0  
-**Last Updated:** April 2026  
-**Created for:** Thapar Institute of Engineering and Technology
-
-🌍 **Tracking glacial lakes for a better future** 🏔️
+Geospatial AI • Climate Analytics • Earth Observation • Predictive Modeling
